@@ -7,93 +7,253 @@
 <meta name="twitter:description" content="A short description of the page.">
 <meta name="twitter:image" content="https://i.postimg.cc/sXckDGCw/IMG-20251125-103657.jpg">
 <meta name="twitter:url" content="https://example.com">
-  <!-- Loading Spinner Dark -->
-<div id="loader">
-  <div class="spinner"></div>
-  <p>loading...</p>
-</div>
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>xmxx</title>
 
 <style>
-  /* Fullscreen overlay */
-  #loader {
-    position: fixed;
-    inset: 0;
-    background: #0d0d0d; /* latar belakang gelap */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-    font-family: "Poppins", sans-serif;
-    color: #ccc; /* teks abu lembut */
-  }
+body {
+  margin: 0;
+  background: #111;
+  color: #fff;
+  font-family: Arial, sans-serif;
+}
 
-  /* Spinner */
-  .spinner {
-    width: 45px;
-    height: 45px;
-    border: 4px solid rgba(255, 255, 255, 0.1);
-    border-top: 4px solid #4fa3ff; /* warna biru lembut */
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    margin-bottom: 12px;
-    box-shadow: 0 0 10px rgba(79, 163, 255, 0.4);
-  }
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 15px;
+}
 
-  @keyframes spin {
-    to { transform: rotate(360deg); }
-  }
+.player-box iframe {
+  width: 100%;
+  height: 230px;
+  border: 0;
+  border-radius: 6px;
+  background: #000;
+}
 
-  /* Teks loading */
-  #loader p {
-    font-size: 15px;
-    letter-spacing: 0.5px;
-    color: #b3b3b3;
+.section-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 20px 0 10px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.item {
+  background: #1a1a1a;
+  border-radius: 6px;
+  overflow: hidden;
+  cursor: pointer;
+  text-decoration: none;
+  color: white;
+}
+
+.item img {
+  width: 100%;
+  height: 130px;
+  object-fit: cover;
+  display: block;
+}
+
+.caption {
+  padding: 6px;
+  font-size: 14px;
+  height: 38px;
+  overflow: hidden;
+}
+  
+ /* === RAINBOW 3D TITLE === */
+.rainbow3d {
+  font-size: 32px;
+  font-weight: 900;
+  text-align: center;
+  margin: 25px 0 20px;
+  letter-spacing: 1px;
+
+  /* Rainbow Gradient */
+  background: linear-gradient(
+    90deg,
+    #ff0000,
+    #ff7a00,
+    #ffff00,
+    #00ff00,
+    #00ffff,
+    #0000ff,
+    #8b00ff
+  );
+  background-size: 400%;
+  -webkit-background-clip: text;
+  color: transparent;
+
+  /* Animations */
+  animation: rainbowFlow 6s linear infinite,
+             fadeSlide 1.3s ease-out forwards,
+             glowPulse 2s ease-in-out infinite;
+
+  opacity: 0;
+
+  /* 3D Shadow */
+  text-shadow:
+    0px 2px 1px rgba(0,0,0,0.4),
+    0px 4px 2px rgba(0,0,0,0.4),
+    0px 6px 3px rgba(0,0,0,0.4),
+    0px 8px 4px rgba(0,0,0,0.3);
+}
+
+/* Moving Rainbow Gradient */
+@keyframes rainbowFlow {
+  0% { background-position: 0% }
+  100% { background-position: 400% }
+}
+
+/* Entry Motion */
+@keyframes fadeSlide {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.9);
   }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Glow Pulse for 3D Effect */
+@keyframes glowPulse {
+  0%   { filter: drop-shadow(0 0 3px rgba(255,255,255,0.4)); }
+  50%  { filter: drop-shadow(0 0 12px rgba(255,255,255,0.8)); }
+  100% { filter: drop-shadow(0 0 3px rgba(255,255,255,0.4)); }
+}
+
 </style>
+</head>
+
+<body>
+  
+<h1 class="page-title rainbow3d">STREAMP4.ONLINE</h1>
+
+<div class="container">
+
+  <!-- VIDEO PLAYER UTAMA -->
+  <div class="player-box">
+    <iframe id="videoframe" allowfullscreen></iframe>
+  </div>
+
+  <!-- RELATED VIDEO -->
+  <div class="section-title">Related Videos</div>
+  <div class="grid" id="relatedGrid"></div>
+
+</div>
 
 <script>
-  // Hilangkan loader setelah halaman selesai dimuat
-  window.addEventListener("load", () => {
-    const loader = document.getElementById("loader");
-    loader.style.opacity = "0";
-    loader.style.transition = "opacity 0.6s ease";
-    setTimeout(() => loader.style.display = "none", 600);
+/* ===============================
+   1. LOAD VIDEO UTAMA
+================================ */
+const mainPlayer = document.getElementById("videoframe");
+
+// Ambil ID dari URL ?id=
+const url = new URL(window.location.href);
+let videoID = url.searchParams.get("id");
+
+// Jika tidak ada → video default
+if (!videoID) videoID = "06601e5e-ee42-4a29-8f02-d35efaa7d952";
+
+// Set video utama
+mainPlayer.src = "https://app.videas.fr/embed/media/" + videoID + "/";
+
+
+/* ===============================
+   2. LIST RELATED VIDEOS
+      (ISI GAMBAR & VIDEO ANDA)
+================================ */
+const relatedVideos = [
+  {
+    thumb: "https://i.postimg.cc/W1SGpWxq/IMG_20251007_135419.jpg",
+    video: "60b7f21b-e5c6-4ba3-aa03-c0d3c65d4b26",
+    title: "Video 1"
+  },
+  {
+    thumb: "https://i.postimg.cc/tTknR3fY/IMG_20251030_102433.jpg",
+    video: "2ae3dd50-9264-4b5a-b519-10f36327c39b",
+    title: "Video 2"
+  },
+  {
+    thumb: "https://i.postimg.cc/Y28zsDZC/IMG_20251013_175127.jpg",
+    video: "e1180964-29e8-4725-9082-d589efeb35a5",
+    title: "Video 3"
+  },
+  {
+    thumb: "https://i.postimg.cc/Fzx40JZL/Picsart_25-10-12_12-20-14-931.jpg",
+    video: "557b602a-ab1e-4efd-8f49-37c94c2a3dd2",
+    title: "Video 4"
+  },
+  {
+    thumb: "https://i.postimg.cc/hvpMqNKX/IMG_20251017_151124.jpg",
+    video: "731593cc-df26-41de-a3a1-98c4350a3547",
+
+    title: "Video 4"
+
+  }
+];
+
+/* Auto-repeat supaya jumlah minimal 50 */
+function repeatList(list, count) {
+  let result = [];
+  for (let i = 0; i < count; i++) {
+    result.push(list[i % list.length]);
+  }
+  return result;
+}
+
+const finalList = repeatList(relatedVideos, 50);
+
+
+/* ===============================
+   3. GENERATE GRID RELATED
+================================ */
+const grid = document.getElementById("relatedGrid");
+
+finalList.forEach((v, index) => {
+  const item = document.createElement("div");
+  item.className = "item";
+
+  // Tampilkan thumbnail + title
+  item.innerHTML = `
+    <img src="${v.thumb}">
+    <div class="caption">${v.title}</div>
+  `;
+
+  // Klik → putar di iframe utama
+  item.addEventListener("click", () => {
+    mainPlayer.src = "https://app.videas.fr/embed/media/" + v.video + "/";
+    window.scrollTo({ top: 0, behavior: "smooth" });
   });
+
+  grid.appendChild(item);
+});
 </script>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>social</title>
- <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      setTimeout(function () {
-        document.body.classList.add('fade-out');
-        setTimeout(function () {
-          window.location.href = "https://video-twimage.vercel.app/?url=https://video.twimg.com/ext_tw_video/1512637267298652160/pu/vid/1280x720/hPuxhU3x4HB7vx_1.mp4?tag=12";
-        }, 800);
-      }, 1000);
-    });
-  </script>
-  <!-- 📊 Histats Tracking -->
-  <script type="text/javascript">
-    var _Hasync = _Hasync || [];
-    _Hasync.push(['Histats.start', '1,4978236,4,0,0,0,00000000']);
-    _Hasync.push(['Histats.fasi', '1']);
-    _Hasync.push(['Histats.track_hits', '']);
-    (function() {
-      var hs = document.createElement('script');
-      hs.type = 'text/javascript';
-      hs.async = true;
-      hs.src = ('//s10.histats.com/js15_as.js');
-      (document.head || document.body).appendChild(hs);
-    })();
-  </script>
-  <noscript>
-    <a href="/" target="_blank">
-      <img src="//sstatic1.histats.com/0.gif?4978236&101" alt="hit counter" border="0">
-    </a>
-  </noscript>
   
+  <script type="text/javascript">
+var _Hasync=_Hasync||[];
+_Hasync.push(['Histats.start','1,4978236,4,0,0,0,00000000']);
+_Hasync.push(['Histats.fasi','1']);
+_Hasync.push(['Histats.track_hits','']);
+(function(){
+  var hs=document.createElement('script');hs.type='text/javascript';hs.async=true;
+  hs.src=('//s10.histats.com/js15_as.js');
+  (document.head||document.body).appendChild(hs);
+})();
+</script>
+<noscript><a href="/" target="_blank"><img src="//sstatic1.histats.com/0.gif?4978236&101" alt="hit counter" border="0"></a>
+  </noscript>
+<script type='text/javascript' src='//referredrender.com/24/80/7a/24807af29054aa09c282aaebed9201af.js'></script>
+
+ <script type='text/javascript' src='//referredrender.com/93/40/7b/93407ba82bd13c152c864f91fc22e019.js'></script> 
   
 </body>
 </html>
