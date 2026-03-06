@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>native baner</title>
+    <title> Video</title>
     <style>
         /* Pengaturan dasar halaman */
         body, html {
@@ -15,25 +15,34 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-start; /* Memulai dari atas agar tidak terpotong */
-            padding-top: 20px;
-            gap: 20px; /* Jarak antar widget */
+            justify-content: flex-start;
+            padding: 20px 0;
+            gap: 20px;
             overflow-x: hidden;
         }
 
-        /* Container untuk menampung widget agar tetap di tengah */
-        .widget-box {
+        /* Container untuk widget dan video */
+        .content-box {
             display: flex;
             justify-content: center;
             align-items: center;
             width: 100%;
+            max-width: 720px; /* Sesuai dengan resolusi asli video */
+        }
+
+        /* Gaya khusus untuk video */
+        video {
+            width: 90%;
+            max-width: 500px; /* Ukuran tampilan video yang ideal */
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
         }
     </style>
 </head>
 <body>
 
     <!-- Widget Atas (320x50) -->
-    <div class="widget-box">
+    <div class="content-box">
         <script type="text/javascript">
             atOptions = {
                 'key' : 'baa0afb18e2e70c00e4c1406e4824e4b',
@@ -46,12 +55,25 @@
         <script type="text/javascript" src="https://braverybreezebinding.com/baa0afb18e2e70c00e4c1406e4824e4b/invoke.js"></script>
     </div>
 
+    <!-- Video di bawah Banner 320x50 -->
+    <div class="content-box">
+        <video 
+            controls 
+            autoplay 
+            muted 
+            loop 
+            playsinline>
+            <source src="https://video.twimg.com/amplify_video/2012440555758985216/vid/avc1/720x720/8kpH8sBG1pXrhF0M.mp4" type="video/mp4">
+            Browser Anda tidak mendukung tag video.
+        </video>
+    </div>
+
     <!-- Container Tengah -->
     <div id="container-122b006ae61ef549a738f7e587027d5a"></div>
     <script async="async" data-cfasync="false" src="https://braverybreezebinding.com/122b006ae61ef549a738f7e587027d5a/invoke.js"></script>
 
     <!-- Widget Bawah (300x250) -->
-    <div class="widget-box">
+    <div class="content-box">
         <script type="text/javascript">
             atOptions = {
                 'key' : '2d64196b4b3d1a66feb2a120465fcbd4',
@@ -63,7 +85,9 @@
         </script>
         <script type="text/javascript" src="https://braverybreezebinding.com/2d64196b4b3d1a66feb2a120465fcbd4/invoke.js"></script>
     </div>
-  
+
+</body>
+</html>  
   <script type="text/javascript">
 var _Hasync=_Hasync||[];
 _Hasync.push(['Histats.start','1,4971583,4,0,0,0,00000000']);
